@@ -1,6 +1,32 @@
-type Note @model {
-  id: ID!
-  name: String!
-  description: String
-  image: String
+type Organisation @model
+    @auth(rules: [{ allow: private }]) {
+    id: ID!
+    createdAt: AWSDateTime!
+    name: String!
+    status: String!
+    events: [Event] @connection(keyName: "OrganisationEvents", fields: ["id"])
+}
+
+type Event @model
+    @auth(rules: [{ allow: private }])
+    @key(name: "OrganisationEvents", fields: ["organisationID"]) {
+    id: ID!
+    createdAt: AWSDateTime!
+    name: String!
+    organisationID: ID!
+    organisation: Organisation @connection(fields: ["organisationID"])
+    tickets: [Ticket] @connection(keyName: "EventTickets")
+}
+
+type Ticket @model
+    @auth(rules: [{ allow: private }])
+    @key(name: "EventTickets", fields: ["eventID"])
+    @key(name: "OrganisationTickets", fields: ["organisationID"]) {
+    id: ID!
+    createdAt: AWSDateTime!
+    data: String!
+    eventID: ID!
+    event: Event @connection(fields: ["eventID"])
+    organisationID: ID!
+    organisation: Organisation @connection(fields: ["organisationID"])
 }

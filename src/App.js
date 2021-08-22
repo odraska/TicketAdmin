@@ -2,13 +2,12 @@ import React, {useEffect, useState} from 'react';
 import './App.css';
 import { API, Storage } from 'aws-amplify';
 import {AmplifySignOut, withAuthenticator} from '@aws-amplify/ui-react';
-import {listNotes} from './graphql/queries';
-import {createNote as createNoteMutation, deleteNote as deleteNoteMutation} from './graphql/mutations';
+
 
 const initialFormState = {name: '', description: ''}
 
 function App() {
-	const [notes, setNotes] = useState([]);
+	/*const [notes, setNotes] = useState([]);
 	const [formData, setFormData] = useState(initialFormState);
 
 	useEffect(() => {
@@ -85,6 +84,12 @@ function App() {
 					))
 				}
 			</div>
+			<AmplifySignOut/>
+		</div>
+	);*/
+
+	return (
+		<div className="App">
 			<AmplifySignOut/>
 		</div>
 	);
